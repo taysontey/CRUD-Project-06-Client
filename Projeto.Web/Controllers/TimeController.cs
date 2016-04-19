@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
-using Projeto.Web.Models;
 using Projeto.Web.ServiceReferenceTime;
 
 namespace Projeto.Web.Controllers
@@ -12,6 +11,11 @@ namespace Projeto.Web.Controllers
     public class TimeController : Controller
     {
         public ActionResult Cadastro()
+        {
+            return View();
+        }
+
+        public ActionResult Consulta()
         {
             return View();
         }
@@ -27,6 +31,22 @@ namespace Projeto.Web.Controllers
                 }
 
                 return Json("Time cadastrado.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        [WebMethod]
+        public JsonResult Consultar()
+        {
+            try
+            {
+                using(TimeServiceClient service = new TimeServiceClient())
+                {
+                    return Json(service.Consultar());
+                }
             }
             catch (Exception e)
             {

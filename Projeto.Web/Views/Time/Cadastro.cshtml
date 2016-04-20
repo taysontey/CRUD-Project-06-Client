@@ -25,6 +25,9 @@
                     data: Model,
                     success: function (msg) {
                         $("#mensagem_time").html(msg);
+
+                        $("#time_nome").val("");
+                        $("#time_fundacao").val("");
                     },
                     error: function (e) {
                         $("#mensagem_time").html(e.status);

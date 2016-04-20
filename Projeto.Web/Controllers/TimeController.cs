@@ -53,5 +53,23 @@ namespace Projeto.Web.Controllers
                 return Json(e.Message);
             }
         }
+
+        [WebMethod]
+        public JsonResult Excluir(TimeModelConsulta model)
+        {
+            try
+            {
+                using(TimeServiceClient service = new TimeServiceClient())
+                {
+                    service.Excluir(model.IdTime);
+                }
+
+                return Json("Time excluído.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
     }
 }

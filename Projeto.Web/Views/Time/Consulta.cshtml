@@ -24,6 +24,8 @@
                             dados += "<td align='center'>" + lista[i].IdTime + "</td>";
                             dados += "<td align='center'>" + lista[i].Nome + "</td>";
                             dados += "<td align='center'>" + lista[i].DataFundacao + "</td>";
+                            dados += "<td>" + '<button class="btn-link" onclick="editFunction(\'' + lista[i].IdTime + '\')">' + " Editar" + "</button>" + " " +
+                                                        '<button class="btn-link" onclick="deleteFunction(\'' + lista[i].IdTime + '\');" >' + " Excluir" + "</button>" + "</td>";
                             dados += "</tr>";
                         }
 
@@ -36,6 +38,34 @@
                 }
             });
         });
+
+        function deleteFunction(id) {
+
+            var Model = {
+
+                IdTime: id
+            }
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Time/Excluir",
+                    data: Model,
+                    success: function (msg) {
+
+                        $("#mensagem_time").html(msg);
+
+                        window.setTimeout(
+                                        function () {
+                                            location.reload()
+                                        }, 3000)
+
+                    },
+                    error: function (e) {
+                        $("#mensagem_time").html(e.status);
+                    }
+                });
+        }
 
     </script>
 

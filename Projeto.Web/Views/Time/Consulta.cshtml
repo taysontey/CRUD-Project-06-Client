@@ -9,6 +9,8 @@
 
         $(document).ready(function () {
 
+            $("#janela_edicao").hide();
+
             $.ajax({
                 type: "POST",
                 url: "/Time/Consultar",
@@ -67,9 +69,103 @@
                 });
         }
 
+        function editFunction(id) {
+
+            var Model = {
+
+                IdTime: id
+            }
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Time/Editar",
+                    data: Model,
+                    success: function (resultado) {
+
+                        $("#janela_edicao").show();
+
+                        $("#time_codigo").val(resultado.IdTime);
+                        $("#time_nome").val(resultado.Nome);
+                        $("#time_fundacao").val(resultado.DataFundacao);
+                    },
+                    error: function (e) {
+                        $("mensagem_time").html(e.status);
+                    }
+                });
+
+            $("#btnAtualizar").click(function () {
+
+                var Model = {
+
+                    IdTime: $("#time_codigo").val(),
+                    Nome: $("#time_nome").val(),
+                    DataFundacao: $("#time_fundacao").val()
+                }
+
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Time/Atualizar",
+                        data: Model,
+                        success: function (msg) {
+
+                            $("#mensagem_time").html(msg);
+                            $("#janela_edicao").hide();
+
+                            window.setTimeout(
+                                       function () {
+                                           location.reload()
+                                       }, 3000)
+                        },
+                        error: function (e) {
+                            $("#mensagem_time").html(e.status);
+                        }
+                    });
+            })
+
+            $("#btnCancelar").click(function () {
+                $("#janela_edicao").hide();
+            });
+        }
+
     </script>
 
 }
+
+<div class="container" id="janela_edicao">
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Código:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="time_codigo" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nome:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="time_nome" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Data de Fundação:</label>
+            <div class="col-md-2">
+                <input type="text" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" id="time_fundacao" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-default" id="btnAtualizar">Atualizar</button>
+                <button class="btn btn-default" id="btnCancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="container" style="text-align:center">

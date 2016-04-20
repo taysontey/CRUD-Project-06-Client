@@ -25,7 +25,7 @@ namespace Projeto.Web.Controllers
         {
             try
             {
-                using(TimeServiceClient service = new TimeServiceClient())
+                using (TimeServiceClient service = new TimeServiceClient())
                 {
                     service.Cadastrar(model);
                 }
@@ -43,10 +43,47 @@ namespace Projeto.Web.Controllers
         {
             try
             {
-                using(TimeServiceClient service = new TimeServiceClient())
+                using (TimeServiceClient service = new TimeServiceClient())
                 {
                     return Json(service.Consultar());
                 }
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        [WebMethod]
+        public JsonResult Editar(TimeModelConsulta model)
+        {
+            try
+            {
+                var resultado = new TimeModelConsulta();
+
+                using (TimeServiceClient service = new TimeServiceClient())
+                {
+                    resultado = service.Editar(model.IdTime);
+                }
+                return Json(resultado);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        [WebMethod]
+        public JsonResult Atualizar(TimeModelEdicao model)
+        {
+            try
+            {
+                using (TimeServiceClient service = new TimeServiceClient())
+                {
+                    service.Atualizar(model);
+                }
+
+                return Json("Time atualizado");
             }
             catch (Exception e)
             {
@@ -59,7 +96,7 @@ namespace Projeto.Web.Controllers
         {
             try
             {
-                using(TimeServiceClient service = new TimeServiceClient())
+                using (TimeServiceClient service = new TimeServiceClient())
                 {
                     service.Excluir(model.IdTime);
                 }

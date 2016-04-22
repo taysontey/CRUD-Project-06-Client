@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Projeto.Web.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Projeto.Web.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfTimeModelDropDown">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TimeModelDropDown" nillable="true" type="tns:TimeModelDropDown" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTimeModelDropDown" nillable="true" type="tns:ArrayOfTimeModelDropDown" />
+  <xs:complexType name="TimeModelDropDown">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdTime" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TimeModelDropDown" nillable="true" type="tns:TimeModelDropDown" />
+  <xs:complexType name="JogadorModelCadastro">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apelido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataNascimento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdTime" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Posicao" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JogadorModelCadastro" nillable="true" type="tns:JogadorModelCadastro" />
+  <xs:complexType name="JogadorModelConsulta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apelido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataNascimento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdJogador" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Posicao" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Time" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JogadorModelConsulta" nillable="true" type="tns:JogadorModelConsulta" />
+  <xs:complexType name="JogadorModelEdicao">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apelido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataNascimento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdJogador" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTime" type="xs:int" />
+      <xs:element minOccurs="0" name="Nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Posicao" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="JogadorModelEdicao" nillable="true" type="tns:JogadorModelEdicao" />
+  <xs:complexType name="ArrayOfJogadorModelConsulta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="JogadorModelConsulta" nillable="true" type="tns:JogadorModelConsulta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfJogadorModelConsulta" nillable="true" type="tns:ArrayOfJogadorModelConsulta" />
+</xs:schema>

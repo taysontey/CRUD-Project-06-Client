@@ -102,8 +102,30 @@
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <None Include="Service References\ServiceReferenceJogador\JogadorService.wsdl" />
+    <None Include="Service References\ServiceReferenceJogador\JogadorService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceJogador\JogadorService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceReferenceJogador\JogadorService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\ServiceReferenceJogador\Projeto.Web.ServiceReferenceJogador.JogadorModelConsulta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ServiceReferenceJogador\Projeto.Web.ServiceReferenceJogador.TimeModelDropDown.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
     <None Include="Service References\ServiceReferenceTime\configuration91.svcinfo" />
     <None Include="Service References\ServiceReferenceTime\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceJogador\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReferenceJogador\configuration.svcinfo" />
+    <None Include="Service References\ServiceReferenceJogador\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServiceReferenceTime\Projeto.Web.ServiceReferenceTime.TimeModelConsulta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -119,11 +141,17 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JogadorController.cs" />
     <Compile Include="Controllers\TimeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\ServiceReferenceJogador\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ServiceReferenceTime\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -144,6 +172,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Time\Consulta.cshtml" />
+    <Content Include="Views\Jogador\Cadastro.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -156,6 +185,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServiceReferenceJogador\" />
     <WCFMetadataStorage Include="Service References\ServiceReferenceTime\" />
   </ItemGroup>
   <PropertyGroup>

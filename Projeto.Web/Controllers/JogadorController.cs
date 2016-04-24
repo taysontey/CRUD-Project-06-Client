@@ -14,6 +14,11 @@ namespace Projeto.Web.Controllers
             return View();
         }
 
+        public ActionResult Consulta()
+        {
+            return View();
+        }
+
         public JsonResult Cadastrar(JogadorModelCadastro model)
         {
             try
@@ -24,6 +29,38 @@ namespace Projeto.Web.Controllers
                 }
 
                 return Json("Jogador cadastrado.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Consultar()
+        {
+            try
+            {
+                using(JogadorServiceClient service = new JogadorServiceClient())
+                {
+                    return Json(service.Consultar());
+                }
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        public JsonResult Excluir(JogadorModelConsulta model)
+        {
+            try
+            {
+                using(JogadorServiceClient service = new JogadorServiceClient())
+                {
+                    service.Excluir(model.IdJogador);
+                }
+
+                return Json("Jogador excluído.");
             }
             catch (Exception e)
             {

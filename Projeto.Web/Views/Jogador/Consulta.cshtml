@@ -9,6 +9,8 @@
 
         $(document).ready(function () {
 
+            $("#janela_edicao").hide();
+
             $.ajax({
 
                 type: "POST",
@@ -68,9 +70,149 @@
 
         }
 
+        function editFunction(id) {
+
+            if ($("#DropDownTime").val() == null) {
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Jogador/CarregarTimes",
+                    success: function (lista) {
+
+                        $("#DropDownTime").append("<option value=''>" + "Escolha um Time..." + "</option>");
+
+                        for (var i = 0; i < lista.length; i++) {
+                            $("#DropDownTime").append("<option value=" + lista[i].IdTime + ">" + lista[i].Nome + "</option>");
+                        }
+                    },
+                    error: function (e) {
+                        $("#mensagem_jogador").html(e.status);
+                    }
+                });
+            }
+
+            var Model = {
+
+                IdJogador: id
+            }
+
+            $.ajax({
+
+                type: "POST",
+                url: "/Jogador/Editar",
+                data: Model,
+                success: function (resultado) {
+
+                    $("#janela_edicao").show();
+
+                    $("#jogador_codigo").val(resultado.IdJogador);
+                    $("#jogador_nome").val(resultado.Nome);
+                    $("#jogador_apelido").val(resultado.Apelido);
+                    $("#jogador_posicao").val(resultado.Posicao);
+                    $("#jogador_nascimento").val(resultado.DataNascimento);
+                },
+                error: function (e) {
+                    $("#mensagem_jogador").html(e.status);
+                }
+            });
+
+            $("#btnAtualizar").click(function () {
+
+                var Model = {
+
+                    IdJogador: $("#jogador_codigo").val(),
+                    Nome: $("#jogador_nome").val(),
+                    Apelido: $("#jogador_apelido").val(),
+                    Posicao: $("#jogador_posicao").val(),
+                    DataNascimento: $("#jogador_nascimento").val(),
+                    IdTime: document.getElementById("DropDownTime").value
+                }
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Jogador/Atualizar",
+                    data: Model,
+                    success: function (msg) {
+                        $("#mensagem_jogador").html(msg);
+
+                        window.setTimeout(
+                                       function () {
+                                           location.reload()
+                                       }, 3000)
+                    },
+                    error: function (e) {
+                        $("#mensagem_jogador").html(e.status);
+                    }
+                });
+            });
+
+
+            $("#btnCancelar").click(function () {
+                $("#janela_edicao").hide();
+            });
+        }
+
     </script>
 
 }
+
+<div class="container" id="janela_edicao">
+
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Código:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_codigo" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Nome:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_nome" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Apelido:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_apelido" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Posição:</label>
+            <div class="col-md-5">
+                <input type="text" class="form-control" id="jogador_posicao" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Data de Nascimento:</label>
+            <div class="col-md-2">
+                <input type="text" onblur="(this.type='text')" onfocus="(this.type='date')" class="form-control" id="jogador_nascimento" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Selecione o Time:</label>
+            <div class="col-md-2">
+                <select id="DropDownTime"></select>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button class="btn btn-default" id="btnAtualizar">Atualizar</button>
+                <button class="btn btn-default" id="btnCancelar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container" style="text-align:center">
     <h3>Lista de Jogadores</h3>

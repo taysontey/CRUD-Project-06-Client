@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services;
 using Projeto.Web.ServiceReferenceJogador;
 
 namespace Projeto.Web.Controllers
@@ -19,6 +20,7 @@ namespace Projeto.Web.Controllers
             return View();
         }
 
+        [WebMethod]
         public JsonResult Cadastrar(JogadorModelCadastro model)
         {
             try
@@ -36,11 +38,12 @@ namespace Projeto.Web.Controllers
             }
         }
 
+        [WebMethod]
         public JsonResult Consultar()
         {
             try
             {
-                using(JogadorServiceClient service = new JogadorServiceClient())
+                using (JogadorServiceClient service = new JogadorServiceClient())
                 {
                     return Json(service.Consultar());
                 }
@@ -51,11 +54,48 @@ namespace Projeto.Web.Controllers
             }
         }
 
-        public JsonResult Excluir(JogadorModelConsulta model)
+        [WebMethod]
+        public JsonResult Editar(JogadorModelConsulta model)
+        {
+            try
+            {
+                var resultado = new JogadorModelConsulta();
+
+                using (JogadorServiceClient service = new JogadorServiceClient())
+                {
+                    resultado = service.Editar(model.IdJogador);
+                }
+                return Json(resultado);
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        [WebMethod]
+        public JsonResult Atualizar(JogadorModelEdicao model)
         {
             try
             {
                 using(JogadorServiceClient service = new JogadorServiceClient())
+                {
+                    service.Atualizar(model);
+                }
+                return Json("Jogador atualizado.");
+            }
+            catch (Exception e)
+            {
+                return Json(e.Message);
+            }
+        }
+
+        [WebMethod]
+        public JsonResult Excluir(JogadorModelConsulta model)
+        {
+            try
+            {
+                using (JogadorServiceClient service = new JogadorServiceClient())
                 {
                     service.Excluir(model.IdJogador);
                 }
@@ -68,6 +108,7 @@ namespace Projeto.Web.Controllers
             }
         }
 
+        [WebMethod]
         public JsonResult CarregarTimes()
         {
             try
